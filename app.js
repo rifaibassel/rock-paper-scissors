@@ -10,11 +10,18 @@ function playSingleRound(playerSelection, computerSelection) {
     (playerSelection === 'paper' && computerSelection === 'rock') ||
     (playerSelection === 'scissors' && computerSelection === 'paper')
   ) {
-    playerSelection.charAt(0).toUpperCase();
-    return `You Win! ${playerSelection} beats ${computerSelection}.`;
+    return `You Win! ${capitalize(playerSelection)} beats ${capitalize(
+      computerSelection
+    )}.`;
   } else if (computerSelection === playerSelection) {
     return 'Tie!';
   } else {
-    `You Lose! ${computerSelection} beats ${playerSelection}.`;
+    return `You Lose! ${capitalize(computerSelection)} beats ${capitalize(
+      playerSelection
+    )}.`;
   }
+}
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
