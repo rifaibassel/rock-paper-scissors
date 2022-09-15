@@ -5,21 +5,25 @@ function getComputerChoice() {
 
 function playSingleRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
+  let result;
   if (
     (playerSelection === 'rock' && computerSelection === 'scissors') ||
     (playerSelection === 'paper' && computerSelection === 'rock') ||
     (playerSelection === 'scissors' && computerSelection === 'paper')
   ) {
-    return `You Win! ${capitalize(playerSelection)} beats ${capitalize(
-      computerSelection
-    )}.`;
+    result = 1;
   } else if (computerSelection === playerSelection) {
-    return 'Tie!';
+    result = 2;
+  } else if (
+    playerSelection !== 'rock' &&
+    playerSelection !== 'paper' &&
+    playerSelection !== 'scissors'
+  ) {
+    result = null;
   } else {
-    return `You Lose! ${capitalize(computerSelection)} beats ${capitalize(
-      playerSelection
-    )}.`;
+    result = 0;
   }
+  return result;
 }
 
 function capitalize(str) {
@@ -30,22 +34,28 @@ function game() {
   let playerCounter = 0;
   let computerCounter = 0;
   for (let i = 0; i < 5; i++) {
-    const computerSelection = getComputerChoice();
+    const computerSelection = 'rock';
     const playerSelection = prompt('Choose your weapon!');
     let result = playSingleRound(playerSelection, computerSelection);
-    if (
-      result ===
-      `You Win! ${capitalize(playerSelection)} beats ${capitalize(
-        computerSelection
-      )}.`
-    ) {
-      console.log(result);
+    if (result === 1) {
+      console.log(
+        `You Win! ${capitalize(playerSelection)} beats ${capitalize(
+          computerSelection
+        )}.`
+      );
       playerCounter++;
-    } else if ((result = 'Tie!')) {
-      console.log(result);
-    } else {
-      console.log(result);
+    } else if (result === 2) {
+      console.log('Tie!');
+    } else if (result === 0) {
+      console.log(
+        `You Lose! ${capitalize(computerSelection)} beats ${capitalize(
+          playerSelection
+        )}.`
+      );
       computerCounter++;
+    } else {
+      console.log('Wrong Input!');
+      i > 0 ? (i = i - 1) : (i = 0);
     }
   }
   if (computerCounter > playerCounter) {
